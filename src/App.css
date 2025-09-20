@@ -1,0 +1,545 @@
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3.5rem 2.5rem 4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.glass-card {
+  position: relative;
+  background: linear-gradient(160deg, rgba(18, 24, 46, 0.88) 0%, rgba(9, 14, 28, 0.82) 100%);
+  border: 1px solid rgba(134, 167, 255, 0.25);
+  border-radius: 28px;
+  padding: 2.5rem;
+  box-shadow: 0 35px 70px rgba(5, 10, 28, 0.45);
+  backdrop-filter: blur(24px);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+  gap: 2.5rem;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 85% 15%, rgba(126, 177, 255, 0.18), transparent 55%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.hero__eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: rgba(190, 210, 255, 0.72);
+}
+
+.hero__content h1 {
+  margin: 0;
+  font-size: 2.4rem;
+  line-height: 1.1;
+  font-weight: 600;
+}
+
+.hero__description {
+  margin: 0;
+  color: rgba(210, 220, 255, 0.72);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.hero__metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 1rem;
+}
+
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem 1.35rem;
+  border-radius: 18px;
+  background: linear-gradient(160deg, rgba(37, 54, 118, 0.45), rgba(18, 28, 60, 0.6));
+  border: 1px solid rgba(126, 177, 255, 0.18);
+}
+
+.metric-card span {
+  color: rgba(195, 211, 255, 0.68);
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+}
+
+.metric-card strong {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.metric-card small {
+  color: rgba(195, 211, 255, 0.55);
+  font-size: 0.75rem;
+}
+
+.hero__summary {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.75rem;
+  padding: 2rem;
+  border-radius: 24px;
+  background: linear-gradient(180deg, rgba(10, 18, 40, 0.85) 0%, rgba(7, 10, 22, 0.92) 100%);
+  border: 1px solid rgba(134, 167, 255, 0.25);
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem 1.5rem;
+}
+
+.summary-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.summary-grid span {
+  font-size: 0.78rem;
+  color: rgba(185, 202, 255, 0.7);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.summary-grid strong {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.summary-grid small {
+  color: rgba(185, 202, 255, 0.55);
+  font-size: 0.72rem;
+}
+
+.hero__summary footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  font-size: 0.85rem;
+  color: rgba(195, 211, 255, 0.72);
+}
+
+.hero__summary footer strong {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.fluid-summary header h2,
+.section-heading h2,
+.bulk-section h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.fluid-summary header p,
+.section-heading p,
+.bulk-section p {
+  margin: 0.35rem 0 0;
+  color: rgba(200, 214, 255, 0.65);
+  font-size: 0.95rem;
+}
+
+.fluid-summary__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+}
+
+.fluid-summary__header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.fluid-summary__header span {
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-size: 0.78rem;
+  color: rgba(195, 211, 255, 0.6);
+}
+
+.fluid-summary__header strong {
+  font-size: 1.75rem;
+  font-weight: 600;
+}
+
+.fluid-summary article p {
+  margin: 0.2rem 0 0.75rem;
+  color: rgba(195, 211, 255, 0.55);
+  font-size: 0.85rem;
+}
+
+.fluid-bar {
+  display: flex;
+  height: 12px;
+  border-radius: 999px;
+  background: rgba(126, 177, 255, 0.12);
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 0 0 1px rgba(126, 177, 255, 0.08);
+  margin-bottom: 0.9rem;
+}
+
+.fluid-bar__segment {
+  height: 100%;
+  transition: width 240ms ease;
+}
+
+.fluid-bar__segment--truck {
+  background: linear-gradient(90deg, rgba(74, 144, 226, 0.95), rgba(163, 205, 255, 0.95));
+}
+
+.fluid-bar__segment--bulk {
+  background: linear-gradient(90deg, rgba(51, 235, 194, 0.9), rgba(119, 255, 218, 0.95));
+}
+
+.fluid-summary ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: rgba(205, 216, 255, 0.75);
+}
+
+.fluid-summary li {
+  display: flex;
+  justify-content: space-between;
+}
+
+.section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.truck-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.truck-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  padding: 2rem;
+  border-radius: 24px;
+  background: linear-gradient(170deg, rgba(18, 24, 44, 0.9), rgba(10, 15, 30, 0.92));
+  border: 1px solid rgba(126, 177, 255, 0.16);
+  box-shadow: 0 24px 48px rgba(5, 12, 32, 0.35);
+  transition: transform 220ms ease, box-shadow 220ms ease;
+}
+
+.truck-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 36px 64px rgba(6, 14, 36, 0.5);
+}
+
+.truck-card--running {
+  border-color: rgba(62, 219, 178, 0.35);
+  box-shadow: 0 28px 60px rgba(30, 120, 100, 0.4);
+}
+
+.truck-card--staged {
+  border-color: rgba(255, 147, 184, 0.25);
+}
+
+.truck-card header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.truck-card__asset {
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  font-size: 0.75rem;
+  color: rgba(198, 210, 255, 0.6);
+}
+
+.truck-card header h3 {
+  margin: 0.3rem 0 0;
+  font-size: 1.25rem;
+}
+
+.truck-card header p {
+  margin: 0.25rem 0 0;
+  font-size: 0.85rem;
+  color: rgba(198, 210, 255, 0.6);
+}
+
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.status-pill--running {
+  color: rgba(110, 245, 204, 0.95);
+  background: rgba(110, 245, 204, 0.12);
+  border: 1px solid rgba(110, 245, 204, 0.3);
+}
+
+.status-pill--stopped {
+  color: rgba(255, 156, 182, 0.95);
+  background: rgba(255, 156, 182, 0.12);
+  border: 1px solid rgba(255, 156, 182, 0.3);
+}
+
+.truck-card__levels {
+  display: grid;
+  gap: 1.05rem;
+}
+
+.truck-card__levels span {
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: rgba(195, 211, 255, 0.72);
+}
+
+.level-bar {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(126, 177, 255, 0.12);
+  overflow: hidden;
+  position: relative;
+  margin: 0.5rem 0 0.4rem;
+  box-shadow: inset 0 0 0 1px rgba(126, 177, 255, 0.08);
+}
+
+.level-bar__fill {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, rgba(126, 177, 255, 0.95), rgba(170, 210, 255, 0.95));
+  transition: width 220ms ease;
+}
+
+.level-bar--fuel .level-bar__fill {
+  background: linear-gradient(90deg, rgba(62, 219, 178, 0.95), rgba(124, 255, 210, 0.95));
+}
+
+.level-bar.is-warning .level-bar__fill,
+.level-bar--fuel.is-warning .level-bar__fill {
+  background: linear-gradient(90deg, rgba(255, 188, 119, 0.95), rgba(255, 215, 160, 0.95));
+}
+
+.level-bar.is-critical .level-bar__fill,
+.level-bar--fuel.is-critical .level-bar__fill {
+  background: linear-gradient(90deg, rgba(255, 116, 146, 0.95), rgba(255, 164, 184, 0.95));
+}
+
+.truck-card__levels small {
+  font-size: 0.78rem;
+  color: rgba(198, 210, 255, 0.6);
+}
+
+.truck-card__status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8rem;
+  color: rgba(198, 210, 255, 0.6);
+}
+
+.heater-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(126, 177, 255, 0.25);
+  background: rgba(126, 177, 255, 0.08);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-size: 0.7rem;
+}
+
+.heater-tag::before {
+  content: '';
+  width: 0.4rem;
+  height: 0.4rem;
+  border-radius: 50%;
+  background: rgba(255, 156, 182, 0.9);
+}
+
+.heater-tag.is-on {
+  border-color: rgba(110, 245, 204, 0.4);
+  background: rgba(110, 245, 204, 0.12);
+}
+
+.heater-tag.is-on::before {
+  background: rgba(110, 245, 204, 0.9);
+  box-shadow: 0 0 8px rgba(110, 245, 204, 0.6);
+}
+
+.truck-card__notes {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: rgba(205, 216, 255, 0.75);
+}
+
+.bulk-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.tank-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 1.5rem;
+}
+
+.tank-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  padding: 1.75rem;
+  border-radius: 20px;
+  background: linear-gradient(170deg, rgba(16, 22, 40, 0.9), rgba(10, 14, 28, 0.92));
+  border: 1px solid rgba(126, 177, 255, 0.18);
+}
+
+.tank-card__fluid {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.7rem;
+  color: rgba(195, 211, 255, 0.65);
+}
+
+.tank-card header h3 {
+  margin: 0.4rem 0 0;
+  font-size: 1.2rem;
+}
+
+.tank-card header p {
+  margin: 0.25rem 0 0;
+  font-size: 0.8rem;
+  color: rgba(195, 211, 255, 0.6);
+}
+
+.tank-card__meter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.tank-card__figures {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: rgba(205, 216, 255, 0.7);
+}
+
+.tank-card__figures strong {
+  font-size: 1.1rem;
+}
+
+.tank-card__footer {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.78rem;
+  color: rgba(198, 210, 255, 0.6);
+}
+
+.tank-card p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: rgba(205, 216, 255, 0.72);
+  line-height: 1.4;
+}
+
+@media (max-width: 1080px) {
+  .hero {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__summary {
+    order: -1;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    padding: 3rem 1.5rem 3.5rem;
+  }
+
+  .glass-card {
+    padding: 2rem;
+  }
+
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero__metrics {
+    grid-template-columns: 1fr;
+  }
+
+  .fluid-summary__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .truck-grid,
+  .tank-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 520px) {
+  .app-shell {
+    padding: 2.5rem 1.15rem 3rem;
+  }
+
+  .glass-card {
+    border-radius: 22px;
+  }
+}
