@@ -645,16 +645,122 @@
   font-size: 0.92rem;
 }
 
-.portal-list {
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.portal-coverflow {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(0.5rem, 2vw, 1.4rem);
+  padding: 0.35rem 0;
+}
+
+.portal-coverflow__viewport {
+  position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
+  align-items: stretch;
+  justify-content: center;
+  gap: clamp(1.1rem, 3vw, 2.6rem);
+  flex: 1;
+  perspective: 1800px;
+  transform-style: preserve-3d;
+  min-height: 100%;
+  padding: 0.2rem 0;
+}
+
+.portal-coverflow__nav {
+  display: grid;
+  place-items: center;
+  width: clamp(44px, 4.8vw, 54px);
+  height: clamp(44px, 4.8vw, 54px);
+  border-radius: 999px;
+  border: 1px solid rgba(126, 177, 255, 0.28);
+  background: rgba(16, 24, 54, 0.82);
+  color: rgba(214, 224, 255, 0.88);
+  font-size: clamp(1.4rem, 2.6vw, 1.85rem);
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s ease,
+    color 0.3s ease;
+}
+
+.portal-coverflow__nav:hover:not([disabled]),
+.portal-coverflow__nav:focus-visible:not([disabled]) {
+  outline: none;
+  transform: translateY(-1px) scale(1.02);
+  background: linear-gradient(160deg, rgba(128, 200, 255, 0.9), rgba(72, 123, 255, 0.92));
+  color: #071026;
+  box-shadow: 0 20px 36px rgba(68, 120, 255, 0.4);
+}
+
+.portal-coverflow__nav[disabled] {
+  opacity: 0.35;
+  cursor: default;
+  box-shadow: none;
+}
+
+.portal-coverflow__nav.is-prev {
+  justify-self: end;
+}
+
+.portal-coverflow__nav.is-next {
+  justify-self: start;
 }
 
 .portal-card.glass-card {
-  padding: 1.85rem;
+  --offset-x: 0%;
+  --depth: 0px;
+  --rotate-y: 0deg;
+  --scale: 1;
+  --card-opacity: 1;
+  --card-index: 1;
+  flex: 0 0 clamp(280px, 78vw, 460px);
+  padding: 1.95rem;
   border-radius: 26px;
   gap: 1.35rem;
+  display: flex;
+  flex-direction: column;
+  transform-origin: center;
+  transform: translateX(var(--offset-x)) translateZ(var(--depth))
+    rotateY(var(--rotate-y)) scale(var(--scale));
+  opacity: var(--card-opacity);
+  z-index: var(--card-index);
+  filter: drop-shadow(0 28px 48px rgba(10, 20, 60, 0.32));
+  transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.32s ease, filter 0.35s ease;
+}
+
+.portal-card.glass-card.is-active {
+  filter: drop-shadow(0 34px 62px rgba(60, 122, 255, 0.45));
+  opacity: 1;
+}
+
+.portal-card.glass-card.is-type-one {
+  border-color: rgba(126, 188, 255, 0.34);
+}
+
+.portal-card.glass-card.is-type-four {
+  border-color: rgba(180, 134, 255, 0.34);
+}
+
+.portal-card.glass-card.is-type-one .portal-card__asset {
+  color: rgba(150, 208, 255, 0.74);
+}
+
+.portal-card.glass-card.is-type-four .portal-card__asset {
+  color: rgba(214, 190, 255, 0.74);
 }
 
 .portal-card__header {
@@ -927,8 +1033,39 @@
     grid-template-columns: 1fr;
   }
 
+  .portal-coverflow {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 0.2rem 0 2.6rem;
+  }
+
+  .portal-coverflow__viewport {
+    width: 100%;
+    gap: clamp(0.85rem, 6vw, 1.75rem);
+  }
+
+  .portal-coverflow__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 42px;
+    height: 42px;
+    font-size: 1.45rem;
+    background: rgba(12, 20, 46, 0.92);
+    border-color: rgba(126, 177, 255, 0.38);
+    z-index: 6;
+  }
+
+  .portal-coverflow__nav.is-prev {
+    left: 0.3rem;
+  }
+
+  .portal-coverflow__nav.is-next {
+    right: 0.3rem;
+  }
+
   .portal-card.glass-card {
-    padding: 1.6rem;
+    padding: 1.65rem;
+    flex: 0 0 clamp(260px, 86vw, 420px);
   }
 
   .portal-grid,
@@ -968,12 +1105,39 @@
     padding: 1.5rem;
   }
 
+  .portal-coverflow {
+    padding: 0.1rem 0 2.3rem;
+  }
+
+  .portal-coverflow__viewport {
+    gap: clamp(0.75rem, 8vw, 1.4rem);
+  }
+
+  .portal-coverflow__nav {
+    width: 36px;
+    height: 36px;
+    font-size: 1.28rem;
+  }
+
+  .portal-coverflow__nav.is-prev {
+    left: 0.15rem;
+  }
+
+  .portal-coverflow__nav.is-next {
+    right: 0.15rem;
+  }
+
   .portal-overview__stats div {
     padding: 0.85rem 0.95rem;
   }
 
   .portal-card__status-controls {
     gap: 0.6rem;
+  }
+
+  .portal-card.glass-card {
+    padding: 1.5rem;
+    flex: 0 0 clamp(240px, 92vw, 360px);
   }
 
   .portal-action-button {

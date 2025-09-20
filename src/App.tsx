@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import type { CSSProperties } from 'react'
 
 import './App.css'
 import type { BulkTank, DeiceTruck, TruckStatus } from './data/inventory'
@@ -60,6 +61,8 @@ function App() {
   const [tanks, setTanks] = useState<BulkTank[]>(() =>
     initialBulkTanks.map((tank) => ({ ...tank })),
   )
+  const [activeTruckIndex, setActiveTruckIndex] = useState(0)
+  const [activeTankIndex, setActiveTankIndex] = useState(0)
 
   const updateTruck = (id: string, mutator: (truck: DeiceTruck) => DeiceTruck) => {
     const stampedAt = new Date().toISOString()
@@ -131,6 +134,42 @@ function App() {
   const lastUpdateIso = lastUpdate?.toISOString() ?? new Date().toISOString()
   const truckStatusOptions: TruckStatus[] = ['Running', 'Not Running']
   const fluidTypeOptions: BulkTank['fluidType'][] = ['Type I', 'Type IV']
+
+  useEffect(() => {
+    setActiveTruckIndex((current) => {
+      if (trucks.length === 0) return 0
+      return Math.min(current, trucks.length - 1)
+    })
+  }, [trucks.length])
+
+  useEffect(() => {
+    setActiveTankIndex((current) => {
+      if (tanks.length === 0) return 0
+      return Math.min(current, tanks.length - 1)
+    })
+  }, [tanks.length])
+
+  const goToPreviousTruck = () => {
+    if (trucks.length <= 1) return
+    setActiveTruckIndex((current) =>
+      (current - 1 + trucks.length) % trucks.length,
+    )
+  }
+
+  const goToNextTruck = () => {
+    if (trucks.length <= 1) return
+    setActiveTruckIndex((current) => (current + 1) % trucks.length)
+  }
+
+  const goToPreviousTank = () => {
+    if (tanks.length <= 1) return
+    setActiveTankIndex((current) => (current - 1 + tanks.length) % tanks.length)
+  }
+
+  const goToNextTank = () => {
+    if (tanks.length <= 1) return
+    setActiveTankIndex((current) => (current + 1) % tanks.length)
+  }
 
   return (
     <div className="app-shell">
@@ -429,14 +468,54 @@ function App() {
               <h2>Deice trucks</h2>
               <p>Adjust fluid loads, fuel reserve, assignments, and heater settings.</p>
             </header>
-            <div className="portal-list">
-              {trucks.map((truck) => {
-                const type1Percent = percentOf(truck.type1Level, truck.type1Capacity)
-                const type4Percent = percentOf(truck.type4Level, truck.type4Capacity)
-                const fuelPercent = Math.round(truck.fuelPercent)
+            <div className="portal-coverflow">
+              <button
+                type="button"
+                className="portal-coverflow__nav is-prev"
+                onClick={goToPreviousTruck}
+                disabled={trucks.length <= 1}
+              >
+                <span aria-hidden="true">‹</span>
+                <span className="sr-only">Previous truck</span>
+              </button>
+              <div className="portal-coverflow__viewport">
+                {trucks.map((truck, index) => {
+                  const type1Percent = percentOf(truck.type1Level, truck.type1Capacity)
+                  const type4Percent = percentOf(truck.type4Level, truck.type4Capacity)
+                  const fuelPercent = Math.round(truck.fuelPercent)
+                  const offset = index - activeTruckIndex
+                  const absOffset = Math.abs(offset)
+                  const translateX = offset * 32
+                  const depth = Math.max(0, 72 - absOffset * 24)
+                  const rotation = Math.max(Math.min(offset * -16, 28), -28)
+                  const scale = Math.max(0.68, 1 - Math.min(absOffset * 0.08, 0.36))
+                  const opacity = Math.max(
+                    0.28,
+                    1 - Math.min(absOffset * 0.22, 0.72),
+                  )
+                  const zIndex = 100 - absOffset
+                  const isActive = offset === 0
 
-                return (
-                  <article key={truck.id} className="portal-card glass-card">
+                  const style = {
+                    '--offset-x': `${translateX}%`,
+                    '--depth': `${depth}px`,
+                    '--rotate-y': `${rotation}deg`,
+                    '--scale': scale,
+                    '--card-opacity': opacity,
+                    '--card-index': zIndex,
+                  } as CSSProperties
+
+                  return (
+                    <article
+                      key={truck.id}
+                      className={`portal-card glass-card${
+                        isActive ? ' is-active' : ''
+                      }`}
+                      style={style}
+                      onMouseEnter={() => setActiveTruckIndex(index)}
+                      onFocusCapture={() => setActiveTruckIndex(index)}
+                      onClick={() => setActiveTruckIndex(index)}
+                    >
                     <header className="portal-card__header">
                       <div>
                         <span className="portal-card__asset">{truck.assetNumber}</span>
@@ -742,9 +821,19 @@ function App() {
                         Stamp update
                       </button>
                     </div>
-                  </article>
-                )
-              })}
+                    </article>
+                  )
+                })}
+              </div>
+              <button
+                type="button"
+                className="portal-coverflow__nav is-next"
+                onClick={goToNextTruck}
+                disabled={trucks.length <= 1}
+              >
+                <span aria-hidden="true">›</span>
+                <span className="sr-only">Next truck</span>
+              </button>
             </div>
           </section>
 
@@ -753,12 +842,54 @@ function App() {
               <h2>Bulk tanks</h2>
               <p>Log farm inventory, sample times, and transfer notes.</p>
             </header>
-            <div className="portal-list">
-              {tanks.map((tank) => {
-                const percent = percentOf(tank.level, tank.capacity)
+            <div className="portal-coverflow">
+              <button
+                type="button"
+                className="portal-coverflow__nav is-prev"
+                onClick={goToPreviousTank}
+                disabled={tanks.length <= 1}
+              >
+                <span aria-hidden="true">‹</span>
+                <span className="sr-only">Previous tank</span>
+              </button>
+              <div className="portal-coverflow__viewport">
+                {tanks.map((tank, index) => {
+                  const percent = percentOf(tank.level, tank.capacity)
+                  const offset = index - activeTankIndex
+                  const absOffset = Math.abs(offset)
+                  const translateX = offset * 32
+                  const depth = Math.max(0, 68 - absOffset * 24)
+                  const rotation = Math.max(Math.min(offset * -16, 28), -28)
+                  const scale = Math.max(0.7, 1 - Math.min(absOffset * 0.08, 0.36))
+                  const opacity = Math.max(
+                    0.28,
+                    1 - Math.min(absOffset * 0.22, 0.72),
+                  )
+                  const zIndex = 100 - absOffset
+                  const isActive = offset === 0
+                  const typeColorClass =
+                    tank.fluidType === 'Type I' ? ' is-type-one' : ' is-type-four'
 
-                return (
-                  <article key={tank.id} className="portal-card glass-card">
+                  const style = {
+                    '--offset-x': `${translateX}%`,
+                    '--depth': `${depth}px`,
+                    '--rotate-y': `${rotation}deg`,
+                    '--scale': scale,
+                    '--card-opacity': opacity,
+                    '--card-index': zIndex,
+                  } as CSSProperties
+
+                  return (
+                    <article
+                      key={tank.id}
+                      className={`portal-card glass-card${typeColorClass}${
+                        isActive ? ' is-active' : ''
+                      }`}
+                      style={style}
+                      onMouseEnter={() => setActiveTankIndex(index)}
+                      onFocusCapture={() => setActiveTankIndex(index)}
+                      onClick={() => setActiveTankIndex(index)}
+                    >
                     <header className="portal-card__header">
                       <div>
                         <span className="portal-card__asset">{tank.fluidType}</span>
@@ -912,9 +1043,19 @@ function App() {
                         }
                       />
                     </div>
-                  </article>
-                )
-              })}
+                    </article>
+                  )
+                })}
+              </div>
+              <button
+                type="button"
+                className="portal-coverflow__nav is-next"
+                onClick={goToNextTank}
+                disabled={tanks.length <= 1}
+              >
+                <span aria-hidden="true">›</span>
+                <span className="sr-only">Next tank</span>
+              </button>
             </div>
           </section>
         </main>
