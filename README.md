@@ -1,7 +1,8 @@
 # GSE Fleet Status 2025
 
 A glass cockpit view of the deice operation. The dashboard tracks the four DS-series trucks alongside
-the Type I and Type IV bulk tanks so ramp leaders can validate readiness at a glance.
+the Type I and Type IV bulk tanks so ramp leaders can validate readiness at a glance, and it now ships
+with a mobile-friendly portal so crews can edit the data on the ramp.
 
 ## Features
 
@@ -11,6 +12,8 @@ the Type I and Type IV bulk tanks so ramp leaders can validate readiness at a gl
   for assets DS032 through DS035.
 - **Bulk tank monitors** outlining remaining gallons, percentage full, and last gauge checks for each
   storage tank.
+- **Field update portal** with sliders, toggles, and text inputs to refresh fluid levels, fuel, statuses,
+  assignments, and notes directly from a phone.
 - **Neon glass aesthetic** with responsive layout tuned for tablets on the ramp.
 
 ## Getting started

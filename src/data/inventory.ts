@@ -27,7 +27,7 @@ export interface BulkTank {
   notes: string
 }
 
-export const deiceTrucks: DeiceTruck[] = [
+export const initialDeiceTrucks: DeiceTruck[] = [
   {
     id: 'truck-ds032',
     assetNumber: 'DS032',
@@ -90,7 +90,7 @@ export const deiceTrucks: DeiceTruck[] = [
   },
 ]
 
-export const bulkTanks: BulkTank[] = [
+export const initialBulkTanks: BulkTank[] = [
   {
     id: 'bulk-type-i',
     name: 'Bulk Tank – Type I',
