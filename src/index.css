@@ -1,0 +1,76 @@
+:root {
+  color-scheme: dark;
+  font-family: 'Space Grotesk', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --bg-base: #05070f;
+  --bg-gradient-a: #0c1731;
+  --bg-gradient-b: #091125;
+  --bg-gradient-c: #04060c;
+  --surface: rgba(15, 19, 34, 0.78);
+  --border-color: rgba(146, 166, 255, 0.18);
+  --text-primary: #f4f6ff;
+  --text-secondary: rgba(225, 231, 255, 0.68);
+  --text-muted: rgba(198, 207, 241, 0.45);
+  --accent-primary: #7eb1ff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(40, 74, 182, 0.35), transparent 60%),
+    radial-gradient(circle at 90% 15%, rgba(63, 213, 255, 0.22), transparent 55%),
+    radial-gradient(circle at 15% 85%, rgba(88, 79, 255, 0.2), transparent 60%),
+    linear-gradient(160deg, var(--bg-gradient-a) 0%, var(--bg-gradient-b) 45%, var(--bg-gradient-c) 100%);
+  color: var(--text-primary);
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 0%, rgba(126, 177, 255, 0.09), transparent 60%);
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  color: rgba(126, 177, 255, 0.9);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+::selection {
+  background: rgba(126, 177, 255, 0.35);
+  color: var(--text-primary);
+}
+
+@media (max-width: 640px) {
+  :root {
+    font-size: 15px;
+  }
+}
